@@ -13,4 +13,5 @@ set nocompatible
 set showcmd
 highlight matchparen ctermbg=red
 
-
+set background=dark
+colorscheme solarized
