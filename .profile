@@ -1,7 +1,7 @@
 # .profile 
 
 PATH=$PATH:$HOME/bin
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/perl5.12/sitebin:$PATH
 
 CLICOLOR=YES; export CLICOLOR
 GREP_OPTIONS='--color=auto'; export GREP_OPTIONS
