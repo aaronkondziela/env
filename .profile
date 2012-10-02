@@ -12,7 +12,7 @@ alias myps='ps -auxf | grep `id -u`'
 
 alias htd='cd /usr/local/apache/htdocs'
 
-[ -f ~/git/up/up.bash ] && . ~/git/up/up.bash
+[ -f ~/bin/up.sh ] && . ~/bin/up.sh
 
 # from mcanz/env
 
