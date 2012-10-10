@@ -9,6 +9,7 @@ GREP_OPTIONS='--color=auto'; export GREP_OPTIONS
 alias l='ls -al';
 alias ll='l';
 alias myps='ps -auxf | grep `id -u`'
+alias pp='python -c "import sys, json; print json.dumps( json.load( sys.stdin ), sort_keys=True, indent=4)"'
 
 alias htd='cd /usr/local/apache/htdocs'
 
