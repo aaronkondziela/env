@@ -24,6 +24,8 @@ alias gcm="git commit"
 alias gb="git branch"
 alias gba="git branch -a"
 
+alias rot13="tr a-zA-Z n-za-mN-ZA-M"
+
 _dir_chomp () {
 	local IFS=/ c=1 n d
 	local p=(${1/#$HOME/\~}) r=${p[*]}
