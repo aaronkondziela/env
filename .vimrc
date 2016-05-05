@@ -4,7 +4,9 @@ vnoremap / /\v
 set number
 set autoindent
 set shiftwidth=4
-set smartindent
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
 set tabstop=4
 set showmatch
 set ruler
