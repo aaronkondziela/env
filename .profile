@@ -17,7 +17,7 @@ alias htd='cd /usr/local/apache/htdocs'
 
 # from mcanz/env
 
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(cyan) %an%Creset' --abbrev-commit --date=relative"
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%C(cyan) %an%Creset' --abbrev-commit --date=format:'%Y-%b-%d %H:%m'"
 alias gs="git status"
 alias gco="git checkout"
 alias gcm="git commit"
