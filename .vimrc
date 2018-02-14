@@ -14,6 +14,8 @@ set incsearch
 set nocompatible
 set showcmd
 highlight matchparen ctermbg=red
+set modeline
+set modelines=5
 
 set background=dark
 colorscheme solarized
