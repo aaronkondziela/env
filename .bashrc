@@ -50,7 +50,7 @@ export PROMPT_COMMAND='export PS1=$(gitprompt.pl statuscount=1 u=%[%e[31m%] c=%[
 # unlimited size
 export HISTFILESIZE=-1
 export HISTSIZE=-1
-export HISTTIMEFORMAT="%YY-%m-%d %T "
+export HISTTIMEFORMAT="%Y-%m-%d %T "
 
 # when shell exits, append vs overwrite
 shopt -s histappend
