@@ -10,7 +10,7 @@ function usage() {
 }
 if [[ $# < 2 ]] ; then usage && exit ; fi
 
-CMD="$1" ; shift
+CMD=$1 ; shift
 
 i=1
 until [[ -z $1 ]] ; do
@@ -37,6 +37,6 @@ function check() {
 while [ 1 ] ; do
 	sleep $SLEEPTIME
 	check
-	if [[ $FLAG == 1 ]] ; then clear ; date ; eval '$CMD' ; fi
+	if [[ $FLAG == 1 ]] ; then clear ; date ; eval $CMD ; fi
 done
 
