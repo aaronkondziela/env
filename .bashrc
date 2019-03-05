@@ -183,5 +183,7 @@ if git branch &>/dev/null; then\
  gitstatus;\
  GITS="\[$RST\][\[$RED\]$MOD\[$WHT\]$NEW\[$GRN\]$STG\[$RST\]]";\
 fi;\
-PS1="\[$RST$BLU\]\t \[$RED\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\$"
+HOSTCOLOR=$RED;\
+if [[ $(whoami) == 'root' ]] ; then HOSTCOLOR=$GRN ; fi
+PS1="\[$RST$BLU\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST\]\$"
 '
