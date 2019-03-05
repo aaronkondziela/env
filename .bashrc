@@ -1,6 +1,39 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+BLK='\e[0;30m' # Black - Regular
+RED='\e[0;31m' # Red
+GRN='\e[0;32m' # Green
+YEL='\e[0;33m' # Yellow
+BLU='\e[0;34m' # Blue
+MAG='\e[0;35m' # Magenta
+CYN='\e[0;36m' # Cyan
+WHT='\e[0;37m' # White
+BLK_B='\e[1;30m' # Black - Bold
+RED_B='\e[1;31m' # Red
+GRN_B='\e[1;32m' # Green
+YEL_B='\e[1;33m' # Yellow
+BLU_B='\e[1;34m' # Blue
+MAG_B='\e[1;35m' # Magenta
+CYN_B='\e[1;36m' # Cyan
+WHT_B='\e[1;37m' # White
+BLK_U='\e[4;30m' # Black - Underline
+RED_U='\e[4;31m' # Red
+GRN_U='\e[4;32m' # Green
+YEL_U='\e[4;33m' # Yellow
+BLU_U='\e[4;34m' # Blue
+MAG_U='\e[4;35m' # Magenta
+CYN_U='\e[4;36m' # Cyan
+WHT_U='\e[4;37m' # White
+BLK_BG='\e[40m'   # Black - Background
+RED_BG='\e[41m'   # Red
+GRN_BG='\e[42m'   # Green
+YEL_BG='\e[43m'   # Yellow
+BLU_BG='\e[44m'   # Blue
+MAG_BG='\e[45m'   # Magenta
+CYN_BG='\e[46m'   # Cyan
+WHT_BG='\e[47m'   # White
+RST='\e[0m'    # Text Reset
 
 # If not running interactively, don't do anything
 case $- in
@@ -20,7 +53,7 @@ export HISTTIMEFORMAT="%Y-%m-%d %T "
 shopt -s histappend
 
 # After each cmd append to hist file and re-read it
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -48,28 +81,28 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+#if [ -n "$force_color_prompt" ]; then
+#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
+#	color_prompt=yes
+#    else
+#	color_prompt=
+#    fi
+#fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+#if [ "$color_prompt" = yes ]; then
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
+#unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -127,4 +160,28 @@ alias gcm="git commit"
 alias gb="git branch"
 alias gba="git branch -a"
 export NODE_PATH=/usr/lib/node_modules
-. ~/.profile
+
+function gitstatus() {
+	STATUS=`git status --porcelain`
+	MOD=`echo "$STATUS" | grep '^ M\|^MM' | wc -l`
+	if [[ $MOD == 0 ]] ; then MOD="" ; fi
+	NEW=`echo "$STATUS" | grep '^??' | wc -l`
+	if [[ $NEW == 0 ]] ; then NEW="" ; fi
+	STG=`echo "$STATUS" | grep '^A \|^M ' | wc -l`
+	if [[ $STG == 0 ]] ; then STG="" ; fi
+}
+
+export PROMPT_COMMAND='\
+RET=$? ;\
+BRANCH="" ;\
+GITS="";\
+ERR="" ;\
+if [[ $RET != 0 ]] ; then ERR=" \[\e[0;30;43m\] $RET \[$RST\]" ; fi ;\
+if git branch &>/dev/null; then\
+ BRANCH=$(git branch 2>/dev/null | grep \* |  cut -d " " -f 2);\
+ BRANCH="($BRANCH)";\
+ gitstatus;\
+ GITS="\[$RST\][\[$RED\]$MOD\[$WHT\]$NEW\[$GRN\]$STG\[$RST\]]";\
+fi;\
+PS1="\[$RST$BLU\]\t \[$RED\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\$"
+'
