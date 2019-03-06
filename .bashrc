@@ -41,6 +41,33 @@ case $- in
       *) return;;
 esac
 
+function gitstatus() {
+	STATUS=`git status --porcelain`
+	MOD=`echo "$STATUS" | grep '^ M\|^MM' | wc -l`
+	if [[ $MOD == 0 ]] ; then MOD="" ; fi
+	NEW=`echo "$STATUS" | grep '^??' | wc -l`
+	if [[ $NEW == 0 ]] ; then NEW="" ; fi
+	STG=`echo "$STATUS" | grep '^A \|^M ' | wc -l`
+	if [[ $STG == 0 ]] ; then STG="" ; fi
+}
+
+export PROMPT_COMMAND='\
+RET=$? ;\
+BRANCH="" ;\
+GITS="";\
+ERR="" ;\
+if [[ $RET != 0 ]] ; then ERR="\[$YEL\]$RET\[$RST\]" ; fi ;\
+if git branch &>/dev/null; then\
+ BRANCH=$(git branch 2>/dev/null | grep \* |  cut -d " " -f 2);\
+ BRANCH="($BRANCH)";\
+ gitstatus;\
+ GITS="\[$RST\][\[$RED\]$MOD\[$WHT\]$NEW\[$GRN\]$STG\[$RST\]]";\
+fi;\
+HOSTCOLOR=$RED;\
+if [[ $(whoami) == 'root' ]] ; then HOSTCOLOR=$GRN ; fi
+PS1="\[$RST$BLU\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST\]\\$"
+'
+
 # Avoid duplicates
 # export HISTCONTROL=ignoredups:erasedups
 
@@ -53,7 +80,7 @@ export HISTTIMEFORMAT="%Y-%m-%d %T "
 shopt -s histappend
 
 # After each cmd append to hist file and re-read it
-#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -124,7 +151,8 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -lF'
+alias ls='ls -F'
+alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -161,29 +189,3 @@ alias gb="git branch"
 alias gba="git branch -a"
 export NODE_PATH=/usr/lib/node_modules
 
-function gitstatus() {
-	STATUS=`git status --porcelain`
-	MOD=`echo "$STATUS" | grep '^ M\|^MM' | wc -l`
-	if [[ $MOD == 0 ]] ; then MOD="" ; fi
-	NEW=`echo "$STATUS" | grep '^??' | wc -l`
-	if [[ $NEW == 0 ]] ; then NEW="" ; fi
-	STG=`echo "$STATUS" | grep '^A \|^M ' | wc -l`
-	if [[ $STG == 0 ]] ; then STG="" ; fi
-}
-
-export PROMPT_COMMAND='\
-RET=$? ;\
-BRANCH="" ;\
-GITS="";\
-ERR="" ;\
-if [[ $RET != 0 ]] ; then ERR=" \[\e[0;30;43m\] $RET \[$RST\]" ; fi ;\
-if git branch &>/dev/null; then\
- BRANCH=$(git branch 2>/dev/null | grep \* |  cut -d " " -f 2);\
- BRANCH="($BRANCH)";\
- gitstatus;\
- GITS="\[$RST\][\[$RED\]$MOD\[$WHT\]$NEW\[$GRN\]$STG\[$RST\]]";\
-fi;\
-HOSTCOLOR=$RED;\
-if [[ $(whoami) == 'root' ]] ; then HOSTCOLOR=$GRN ; fi
-PS1="\[$RST$BLU\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST\]\$"
-'
