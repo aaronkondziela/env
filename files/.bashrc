@@ -15,6 +15,10 @@ function bash_is_crusty_af() {
 	fi
 }
 
+function on_a_mac() {
+	[ $(uname) == "Darwin" ]
+}
+
 # Colors to use later. TODO make this less shitty
 BLK='\e[0;30m' # Black - Regular
 RED='\e[0;31m' # Red
@@ -61,6 +65,8 @@ function gitstatus() {
 	if [[ $STG == 0 ]] ; then STG="" ; fi
 }
 
+if on_a_mac ; then TIMECOLOR="$RST$YEL" ; else TIMECOLOR="$RST$BLU" ; fi
+
 export PROMPT_COMMAND='
 RET=$?
 BRANCH=""
@@ -75,7 +81,7 @@ if git branch &>/dev/null; then
 fi
 HOSTCOLOR=$RED
 if [[ $(whoami) == "root" ]] ; then HOSTCOLOR=$GRN ; fi
-PS1="\[$RST$BLU\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST\]\\$"
+PS1="\[$TIMECOLOR\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST\]\\$"
 '
 # Note that newline before the ' is important for the history prompt_command diddle below
 

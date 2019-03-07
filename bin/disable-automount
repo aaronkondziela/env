@@ -1,2 +1,0 @@
-sudo launchctl unload /System/Library/LaunchDaemons/com.apple.diskarbitrationd.plist
-

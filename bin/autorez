@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-while [ 1 ] ; do
-	xrandr | fgrep -q '*+'
-	if [ $? == 1 ] ; then
-		echo "autorez: monitor size changed"
-		xrandr --output VGA-0 --preferred
-	fi
-	sleep 1
-done
