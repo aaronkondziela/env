@@ -2,11 +2,12 @@
 ! Xft settings
 !-------------------------------------------------------------------------------
 
-Xft.dpi:                    135
+Xft.dpi:                    192
 Xft.antialias:              true
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintfull
+!Xft.hintstyle:              hintslight
 
 !-------------------------------------------------------------------------------
 ! URxvt settings
@@ -14,6 +15,11 @@ Xft.hintstyle:              hintfull
 ! More info at:
 ! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
 !-------------------------------------------------------------------------------
+
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.iso14755: true
+URxvt.iso14755_52: false
 
 URxvt.depth:                32
 URxvt.geometry:             90x30
@@ -29,13 +35,13 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           true
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-! URxvt*font: xft:Monospace:pixelsize=14
-! URxvt*boldFont: xft:Monospace:pixelsize=14
-URxvt*font: xft:Anonymous Pro:pixelsize=14:antialias=true
-URxvt*boldFont: xft:Anonymous Pro B:pixelsize=14:antialias=true
+!URxvt*font: xft:Monospace:pixelsize=24
+!URxvt*boldFont: xft:Monospace:pixelsize=24
+URxvt*font: xft:Anonymous Pro:pixelsize=24
+URxvt*boldFont: xft:Anonymous Pro:pixelsize=24
 
 ! Fix font space
-!URxvt*letterSpace: -1
+URxvt*letterSpace: -1
 
 ! Scrollbar
 URxvt.scrollStyle:          rxvt
