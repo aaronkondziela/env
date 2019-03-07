@@ -1,0 +1,7 @@
+# whatscale
+# prints a command to use on a serial terminal to match
+# your machine's terminal dimensions and make life nice.
+
+ROWS=`stty --all | egrep -o 'rows [0-9]+' | egrep -o '[0-9]+'`
+COLUMNS=`stty --all | egrep -o 'columns [0-9]+' | egrep -o '[0-9]+'`
+echo "stty cols $COLUMNS rows $ROWS && export TERM=linux && reset"
