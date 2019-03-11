@@ -16,6 +16,7 @@ set showcmd
 highlight matchparen ctermbg=red
 set modeline
 set modelines=5
+set hlsearch
 
 set background=dark
 colorscheme solarized
