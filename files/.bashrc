@@ -89,6 +89,7 @@ PS1="\[$TIMECOLOR\]\t \[$HOSTCOLOR\]\h \[$RST\]\w \[$BLU\]$BRANCH$GITS$ERR\[$RST
 # export HISTCONTROL=ignoredups:erasedups
 
 if bash_is_crusty_af ; then
+	echo Setting old bash histsize because bash is crusty
 	# "unlimited" size
 	export HISTSIZE=50000
 else
@@ -134,7 +135,9 @@ if [ -f ~/.bash_aliases ] ; then . ~/.bash_aliases ; fi
 if [ -f ~/.bash_aliases_private ] ; then . ~/.bash_aliases_private ; fi
 
 # Install smoeller's up command
-if [ ! bash_is_crusty_af ] ; then
+if ! bash_is_crusty_af ; then
 	if [ -r ~/bin/up.sh ] ; then . ~/bin/up.sh ; fi
+else
+	echo Not sourcing up because of bashcrusty result
 fi
 
