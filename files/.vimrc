@@ -20,3 +20,5 @@ set hlsearch
 
 set background=dark
 colorscheme solarized
+
+let g:sql_type_default = 'pgsql'
