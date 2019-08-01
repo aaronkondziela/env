@@ -17,3 +17,4 @@ alias gba="git branch -a"
 # util
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
 
+alias aliases='vi ~/.bash_aliases_private && . ~/.bash_aliases_private && echo Aliases updated.'
