@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-curl -s -X 'content-type: application/json' -X 'accept: application/json'  $@ | json
+CMD="curl -s -H 'content-type: application/json' -H 'accept: application/json'  $@"
+$CMD | json 2>/dev/null
