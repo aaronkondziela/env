@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
 
-CMD="curl -s -H 'content-type: application/json' -H 'accept: application/json'  $@"
-$CMD | json 2>/dev/null
+rm -f /tmp/__ak_headers 2>/dev/null
+RESULT=$(/usr/bin/time -f  "CURL TIME: %es" curl -H "Expect:" -H "Content-Type: application/json" --dump-header /tmp/__ak_headers -s -H "Accept: application/json" "$@")
+grep "HTTP\/1.1" /tmp/__ak_headers 1>&2
+echo
+
+grep -i "^content-type: application/json" /tmp/__ak_headers 2>&1 >/dev/null
+ISJS=$?
+
+rm -f /tmp/__ak_headers 2>/dev/null
+
+if [[ $ISJS == 0 ]]; then
+	echo "$RESULT" | json
+else
+	echo $RESULT
+fi
